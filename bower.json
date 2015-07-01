@@ -1,0 +1,20 @@
+{
+  "name": "opentv-ui",
+  "version": "0.0.1",
+  "authors": [
+    "brianlocicero"
+  ],
+  "description": "3D interface for OpenTV",
+  "main": "index.html",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.4"
+  }
+}
