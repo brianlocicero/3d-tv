@@ -1,4 +1,4 @@
-var opentvui = (function opentvui ($) {
+var opentvui = (function opentvui ($, global) {
 
 	var movies = [
 		["Avengers", "images/avengers.jpg", 1, 1],
@@ -27,17 +27,18 @@ var opentvui = (function opentvui ($) {
 	];
 
 	var camera, scene, renderer;
-	var controls;
+	//var controls;
 
 	var objects = [];
-	var targets = { table: [], sphere: [], helix: [], grid: [] };
+	var targets = { table: [], sphere: [], helix: [], grid: [], deck: [] };
+	var selectedPos = [0, 0, 0, 0];
 
 	init();
 	animate();
 
 	function init() {
 
-		camera = new THREE.PerspectiveCamera( 40, window.innerWidth / window.innerHeight, 1, 10000 );
+		camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 1, 10000 );
 		camera.position.z = 3000;
 
 		scene = new THREE.Scene();
@@ -66,6 +67,7 @@ var opentvui = (function opentvui ($) {
 			element.appendChild( details );
 			*/
 
+			//divs
 			var element = document.createElement('div');
 			if (i === 0) {
 				element.className = "movie movie" + i + " selected"
@@ -75,25 +77,31 @@ var opentvui = (function opentvui ($) {
 			var cover = document.createElement('img');
 			cover.src = movies[i][1];
 			element.appendChild(cover);
-
+      
+      //css objects
 			var object = new THREE.CSS3DObject( element );
+			//these positions are the random starting points
 			object.position.x = Math.random() * 4000 - 2000;
 			object.position.y = Math.random() * 4000 - 2000;
 			object.position.z = Math.random() * 4000 - 1000;
 			scene.add( object );
-
+			//store a reference to css objects
 			objects.push( object );
 
-			//
+			//3d objects
 			var object = new THREE.Object3D();
 			object.position.x = ( movies[i][2] * 240 ) - 1130;
 			object.position.y = - ( movies[i][3] * 300 ) + 990;
-
+			//store a reference to 3d objectts
 			targets.table.push( object );
 
 		}
 
+		global.objects = objects;
+		global.targets = targets;
+
 		// sphere
+
 		var vector = new THREE.Vector3();
 		for ( var i = 0, l = objects.length; i < l; i ++ ) {
 
@@ -148,6 +156,21 @@ var opentvui = (function opentvui ($) {
 
 		}
 
+		//deck
+		for ( var i = 0; i < objects.length; i ++ ) {
+
+			var object = new THREE.Object3D();
+
+			object.position.x = 800;
+			object.position.y = - (400 + (i * 10));
+			object.position.z = 1000;
+			object.rotation.x = -1.5;
+
+
+			targets.deck.push( object );
+
+		}
+
 		//renderer
 		renderer = new THREE.CSS3DRenderer();
 		renderer.setSize( window.innerWidth, window.innerHeight );
@@ -155,11 +178,14 @@ var opentvui = (function opentvui ($) {
 		document.getElementById( 'container' ).appendChild( renderer.domElement );
 
 		//controls
+		/*
 		controls = new THREE.TrackballControls( camera, renderer.domElement );
 		controls.rotateSpeed = 0.5;
 		controls.minDistance = 500;
 		controls.maxDistance = 6000;
 		controls.addEventListener( 'change', render );
+		*/
+
 
 		var button = document.getElementById( 'table' );
 		button.addEventListener( 'click', function ( event ) {
@@ -179,6 +205,21 @@ var opentvui = (function opentvui ($) {
 		var button = document.getElementById( 'grid' );
 		button.addEventListener( 'click', function ( event ) {
 			transform( targets.grid, 2000 );
+		}, false );
+
+		var button = document.getElementById( 'deck' );
+		button.addEventListener( 'click', function ( event ) {
+			transform( targets.deck, 2000 );
+		}, false );
+
+		var button = document.getElementById( 'getSelected' );
+		button.addEventListener( 'click', function ( event ) {
+			transformSelected ( 1, 2000 );
+		}, false );
+
+		var button = document.getElementById( 'reverseSelected' );
+		button.addEventListener( 'click', function ( event ) {
+			reverseTransformSelected ( 1, 2000 );
 		}, false );
 
 		transform( targets.table, 2000 );
@@ -217,6 +258,56 @@ var opentvui = (function opentvui ($) {
 
 	}
 
+	function transformSelected (targetNum, duration) {
+
+			TWEEN.removeAll();
+
+			selectedPos[0] = objects[targetNum].position.x;
+			selectedPos[1] = objects[targetNum].position.y;
+			selectedPos[2] = objects[targetNum].position.z;
+			selectedPos[3] = objects[targetNum].rotation.x;
+
+			var object = objects[ targetNum ];
+
+			new TWEEN.Tween( object.position )
+				.to( { x: -150, y: 10, z: 2500 }, Math.random() * duration + duration )
+				.easing( TWEEN.Easing.Exponential.InOut )
+				.start();
+
+			new TWEEN.Tween( object.rotation )
+				.to( { x: 0, y: 0, z: 0 }, Math.random() * duration + duration )
+				.easing( TWEEN.Easing.Exponential.InOut )
+				.start();
+
+			new TWEEN.Tween( this )
+			.to( {}, duration * 2 )
+			.onUpdate( render )
+			.start();
+
+	}
+
+	function reverseTransformSelected(targetNum, duration) {
+
+			TWEEN.removeAll();
+
+			var object = objects[ targetNum ];
+
+			new TWEEN.Tween( object.position )
+				.to( { x: selectedPos[0], y: selectedPos[1], z: selectedPos[2] }, Math.random() * duration + duration )
+				.easing( TWEEN.Easing.Exponential.InOut )
+				.start();
+
+			new TWEEN.Tween( object.rotation )
+				.to( { x: selectedPos[3], y: 0, z: 0 }, Math.random() * duration + duration )
+				.easing( TWEEN.Easing.Exponential.InOut )
+				.start();
+
+			new TWEEN.Tween( this )
+			.to( {}, duration * 2 )
+			.onUpdate( render )
+			.start();
+	}
+
 	function onWindowResize() {
 
 		camera.aspect = window.innerWidth / window.innerHeight;
@@ -234,7 +325,7 @@ var opentvui = (function opentvui ($) {
 
 		TWEEN.update();
 
-		controls.update();
+		//controls.update();
 
 	}
 
@@ -333,5 +424,8 @@ var opentvui = (function opentvui ($) {
 		}
 
 	});
-}(jQuery));
+
+
+
+}(jQuery, window));
 
