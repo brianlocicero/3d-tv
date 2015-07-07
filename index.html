@@ -5,13 +5,21 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 		<title>OpenTV VOD UI Demo</title>
+		<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
+		<link href="css/animate.css" rel="stylesheet" type="text/css" />
+		<link href="css/main.css" rel="stylesheet" type="text/css" />
 	</head>
 	<body>
 
-		<link href="css/main.css" rel="stylesheet" type="text/css" />
 
 		<div id="container"></div>
-		<div id="info">OpenTV VOD UI Demo</div>
+		<div id="details">
+			<h1 class="title"></h1>
+			<p class="description"></p>
+			<p class="releaseDate"></p>
+			<p class="director"></p>
+			<p class="trailer"><a href="#">Play Trailer</a></p>
+		</div>
 		<div id="videoPlayer">
 			<video src="videos/movieclip.mp4" controls>
 			  Your browser does not support the <code>video</code> element.

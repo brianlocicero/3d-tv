@@ -4,32 +4,34 @@ var opentvui = (function opentvui ($, global) {
 		mode: "grid",
 	  objects: [],
 		targets: { grid: [], deck: [] },
+		rowNum: 5,
+		numMovies: 23,
 		selectedMovie: 0,
 		selectedPos: [0, 0, 0, 0],
 		movies: [
-			["Avengers", "images/avengers.jpg", 1, 1],
-			["Blade Runner", "images/blade_runner.jpg", 2, 1],
-			["Brave", "images/brave.jpg", 3, 1],
-			["The Hunger Games: Catching Fire", "images/catching_fire.jpg", 4, 1],
-			["Django", "images/django.jpg", 5, 1],
-			["Finding Nemo", "images/finding_nemo.jpg", 1, 2],
-			["The Hobbit", "images/hobbit.jpg", 2, 2],
-			["Hotel Transylvania", "images/hotel_transylvania.jpg", 3, 2],
-			["Hugo", "images/Hugo.jpg", 4, 2],
-			["The Hunger Games", "images/hunger_games.jpg", 5, 2],
-			["Iron Man", "images/iron_man.jpg", 1, 3],
-			["Les Miserables", "images/les_mis.jpg", 2, 3],
-			["Lorax", "images/lorax.jpg", 3, 3],
-			["Superman: Man of Steel", "images/man_of_steel_large.jpg", 4, 3],
-			["Monsters Inc.", "images/monsters_inc.jpg", 5, 3],
-			["Twilight: New Moon", "images/new_moon.jpg", 1, 4],
-			["Simpsons: The Movie", "images/simpsons_movie_large.jpg", 2, 4],
-			["James Bond: Skyfall", "images/skyfall_large.jpg", 3, 4],
-			["Spiderman", "images/spider_man.jpg", 4, 4],
-			["Star Trek", "images/star_trek.jpg", 5, 4],
-			["How to train your dragon", "images/train_dragon.jpg", 1, 5],
-			["Wall-E", "images/wall_e.jpg", 2, 5],
-			["Wreak it Ralph", "images/wreck_it_ralph.jpg", 3, 5]
+			["Avengers", "images/avengers.jpg", "Earth's mightiest heroes must come together and learn to fight as a team if they are to stop the mischievous Loki and his alien army from enslaving humanity.", "2012", "Brian LoCicero"],
+			["Blade Runner", "images/blade_runner.jpg", "A blade runner must pursue and try to terminate four replicants who stole a ship in space and have returned to Earth to find their creator.", "1982", "Brian LoCicero"],
+			["Brave", "images/brave.jpg", "Determined to make her own path in life, Princess Merida defies a custom that brings chaos to her kingdom. Granted one wish, Merida must rely on her bravery and her archery skills to undo a beastly curse.", "2012", "Brian LoCicero"],
+			["The Hunger Games: Catching Fire", "images/catching_fire.jpg", "Katniss Everdeen and Peeta Mellark become targets of the Capitol after their victory in the 74th Hunger Games sparks a rebellion in the Districts of Panem.", "2013", "Brian LoCicero"],
+			["Django Unchained", "images/django.jpg", "With the help of a German bounty hunter, a freed slave sets out to rescue his wife from a brutal Mississippi plantation owner.", "2012", "Brian LoCicero"],
+			["Finding Nemo", "images/finding_nemo.jpg", "After his son is captured in the Great Barrier Reef and taken to Sydney, a timid clownfish sets out on a journey to bring him home.", "2003", "Brian LoCicero"],
+			["The Hobbit: An Unexpected Journey", "images/hobbit.jpg", "A reluctant hobbit, Bilbo Baggins, sets out to the Lonely Mountain with a spirited group of dwarves to reclaim their mountain home - and the gold within it - from the dragon Smaug.", "2012", "Brian LoCicero"],
+			["Hotel Transylvania", "images/hotel_transylvania.jpg", "Dracula, who operates a high-end resort away from the human world, goes into overprotective mode when a boy discovers the resort and falls for the count's teen-aged daughter.", "2012", "Brian LoCicero"],
+			["Hugo", "images/Hugo.jpg", "Set in 1930s Paris, an orphan who lives in the walls of a train station is wrapped up in a mystery involving his late father and an automaton.", "2011", "Brian LoCicero"],
+			["The Hunger Games", "images/hunger_games.jpg", "Katniss Everdeen voluntarily takes her younger sister's place in the Hunger Games, a televised fight to the death in which two teenagers from each of the twelve Districts of Panem are chosen at random to compete.", "2012", "Brian LoCicero"],
+			["Iron Man", "images/iron_man.jpg", "After being held captive in an Afghan cave, an industrialist creates a unique weaponized suit of armor to fight evil.", "2008", "Brian LoCicero"],
+			["Les Misérables", "images/les_mis.jpg", "In 19th-century France, Jean Valjean, who for decades has been hunted by the ruthless policeman Javert after breaking parole, agrees to care for a factory worker's daughter. The decision changes their lives for ever.", "2012", "Brian LoCicero"],
+			["Lorax", "images/lorax.jpg", "A 12-year-old boy searches for the one thing that will enable him to win the affection of the girl of his dreams. To find it he must discover the story of the Lorax, the grumpy yet charming creature who fights to protect his world.", "2012", "Brian LoCicero"],
+			["Man of Steel", "images/man_of_steel_large.jpg", "Clark Kent, one of the last of an extinguished race disguised as an unremarkable human, is forced to reveal his identity when Earth is invaded by an army of survivors who threaten to bring the planet to the brink of destruction.", "2013", "Brian LoCicero"],
+			["Monsters Inc.", "images/monsters_inc.jpg", "Monsters generate their city's power by scaring children, but they are terribly afraid themselves of being contaminated by children, so when one enters Monstropolis, top scarer Sulley finds his world disrupted.", "2001", "Brian LoCicero"],
+			["The Twilight Saga: New Moon", "images/new_moon.jpg", "Edward leaves Bella after an attack that nearly claimed her life, and in her depression she falls into yet another paranormal relationship- this time with werewolf Jacob Black.", "2009", "Brian LoCicero"],
+			["The Simpsons Movie", "images/simpsons_movie_large.jpg", "After Homer accidentally pollutes the town's water supply, Springfield is encased in a gigantic dome by the EPA and the Simpson family are declared fugitives.", "2007", "Brian LoCicero"],
+			["James Bond: Skyfall", "images/skyfall_large.jpg", "Bond's loyalty to M is tested when her past comes back to haunt her. Whilst MI6 comes under attack, 007 must track down and destroy the threat, no matter how personal the cost.", "2012", "Brian LoCicero"],
+			["The Amazing Spiderman", "images/spider_man.jpg", "After Peter Parker is bitten by a genetically altered spider, he gains newfound, spider-like powers and ventures out to solve the mystery of his parent's mysterious death.", "2012", "Brian LoCicero"],
+			["Star Trek Into Darkness", "images/star_trek.jpg", "After the crew of the Enterprise find an unstoppable force of terror from within their own organization, Captain Kirk leads a manhunt to a war-zone world to capture a one-man weapon of mass destruction.", "2013", "Brian LoCicero"],
+			["How to train your dragon", "images/train_dragon.jpg", "A hapless young Viking who aspires to hunt dragons becomes the unlikely friend of a young dragon himself, and learns there may be more to the creatures than he assumed.", "2010", "Brian LoCicero"],
+			["Wall-E", "images/wall_e.jpg", "In the distant future, a small waste collecting robot inadvertently embarks on a space journey that will ultimately decide the fate of mankind.", "2008", "Brian LoCicero"],
+			["Wreck it Ralph", "images/wreck_it_ralph.jpg", "A video game villain wants to be a hero and sets out to fulfill his dream, but his quest brings havoc to the whole arcade where he lives", "2012", "Brian LoCicero"]
 		]
 	}
 
@@ -74,18 +76,18 @@ var opentvui = (function opentvui ($, global) {
 				var object = new THREE.Object3D();
 				object.position.x = ( ( i % 5 ) * 400 ) - 800;
 				object.position.y = ( - ( Math.floor( i / 5 ) % 5 ) * 400 ) + 800;
-				object.position.z = ( Math.floor( i / 25 ) ) * 1000 - 2000;
+				object.position.z = ( Math.floor( i / 25 ) ) * 1000;
 				vodModel.targets.grid.push( object ); 
 			}
-
 
 			//deck
 			for ( var i = 0; i < vodModel.objects.length; i ++ ) {
 				var object = new THREE.Object3D();
 				object.position.x = 800;
-				object.position.y = - (400 + (i * 10));
+				object.position.y = - (400 + (i * 5));
 				object.position.z = 1000;
 				object.rotation.x = -1.5;
+				//object.rotation.z = Math.random();
 				vodModel.targets.deck.push( object );
 			}
 
@@ -102,6 +104,10 @@ var opentvui = (function opentvui ($, global) {
 		},
 
 		transform: function (targets, duration, mode) {
+
+			if ( $("#details").hasClass("animated") ) {
+				$("#details").addClass("animated fadeOut");
+			}
 
 			vodModel.mode = mode;
 
@@ -129,7 +135,6 @@ var opentvui = (function opentvui ($, global) {
 				.onUpdate( render )
 				.onComplete( function () {
 					if (vodModel.mode === "deck") {
-						console.log(vodModel.selectedMovie);
 						vodMethods.transformSelected(vodModel.selectedMovie, 500);
 					}
 				})
@@ -139,8 +144,11 @@ var opentvui = (function opentvui ($, global) {
 
 		transformSelected: function (targetNum, duration) {
 
-			//TWEEN.removeAll();
+			vodModel.mode = "details";
 
+			$("#details").removeClass();
+
+			//store my position so I can reverse it later
 			vodModel.selectedPos[0] = vodModel.objects[targetNum].position.x;
 			vodModel.selectedPos[1] = vodModel.objects[targetNum].position.y;
 			vodModel.selectedPos[2] = vodModel.objects[targetNum].position.z;
@@ -149,7 +157,7 @@ var opentvui = (function opentvui ($, global) {
 			var object = vodModel.objects[targetNum];
 
 			new TWEEN.Tween( object.position )
-				.to( { x: -150, y: 10, z: 2500 }, Math.random() * duration + duration )
+				.to( { x: -180, y: 10, z: 2550 }, Math.random() * duration + duration )
 				.easing( TWEEN.Easing.Exponential.InOut )
 				.start();
 
@@ -161,15 +169,25 @@ var opentvui = (function opentvui ($, global) {
 			new TWEEN.Tween( this )
 			.to( {}, duration * 2 )
 			.onUpdate( render )
+			.onComplete( function() {
+				$("#details h1.title").text( vodModel.movies[targetNum][0] );
+				$("#details p.description").text( vodModel.movies[targetNum][2] );
+				$("#details p.releaseDate").text( "Release Date: " + vodModel.movies[targetNum][3] + "");
+				$("#details p.director").text( "Director: " + vodModel.movies[targetNum][4] + "");
+				$("#details").addClass("animated fadeIn");
+			})
 			.start();
 
 		},
 
 		reverseTransformSelected: function (targetNum, duration, direction) {
 
+			$("#details").addClass("animated fadeOut");
+
 			TWEEN.removeAll();
 
 			var object = vodModel.objects[targetNum];
+			console.log(object);
 
 			new TWEEN.Tween( object.position )
 				.to( { x: vodModel.selectedPos[0], y: vodModel.selectedPos[1], z: vodModel.selectedPos[2] }, Math.random() * duration + duration )
@@ -186,7 +204,7 @@ var opentvui = (function opentvui ($, global) {
 			.onUpdate( render )
 			.onComplete( function () {
 				vodMethods.selector(direction);
-				vodMethods.transformSelected(vodModel.selectedMovie+1, 500);
+				vodMethods.transformSelected(vodModel.selectedMovie, 500);
 			})
 			.start();
 
@@ -194,34 +212,26 @@ var opentvui = (function opentvui ($, global) {
 
 		selector: function (direction) {
 
-			var numMovies = $(".movie").length;
 			//get currently selected
 			var myPos = $(".movie.selected").index();
+			var maxDown = Math.round( vodModel.numMovies - (vodModel.numMovies / vodModel.rowNum) );
 
-
-			if (direction === "left" && myPos > 0) {
+			if (direction === "left" && myPos > 0 ||
+				  direction === "up" && myPos > 0 && vodModel.mode === "details") {
 				$(".movie:eq("+myPos+")").removeClass("selected");
 				$(".movie:eq("+(myPos-1)+")").addClass("selected");
-			}
-
-			if (direction === "right" && myPos < (numMovies-1)) {
+			} else if (direction === "right" && myPos < (vodModel.numMovies-1) ||
+				  direction === "down" && myPos < (vodModel.numMovies-1) && vodModel.mode === "details") {
 				$(".movie:eq("+myPos+")").removeClass("selected");
 				$(".movie:eq("+(myPos+1)+")").addClass("selected");
-			}
-
-			//these 2 are hard-coded nn change
-			if (direction === "up" && myPos > 4) {
+			} else if (direction === "up" && myPos > (vodModel.rowNum -1)) {
 				$(".movie:eq("+myPos+")").removeClass("selected");
-				$(".movie:eq("+(myPos-5)+")").addClass("selected");
-			}
-
-			//fix
-			if (direction === "down" && myPos < (numMovies-3)) {
+				$(".movie:eq("+(myPos-vodModel.rowNum)+")").addClass("selected");
+			} else if (direction === "down" && myPos < maxDown) {
 				$(".movie:eq("+myPos+")").removeClass("selected");
-				$(".movie:eq("+(myPos+5)+")").addClass("selected");
+				$(".movie:eq("+(myPos+vodModel.rowNum)+")").addClass("selected");
 			}
 
-			//set selected
 			vodModel.selectedMovie = $(".movie.selected").index();
 
 		}
@@ -279,44 +289,55 @@ var opentvui = (function opentvui ($, global) {
 			case 37:
 			if (vodModel.mode === "grid") {
 				vodMethods.selector("left");
-			} else if (vodModel.mode === "deck") {
+			} else if (vodModel.mode === "details") {
 				vodMethods.reverseTransformSelected(vodModel.selectedMovie, 500, "left");
 			}
 			break;
 
 			//up
 			case 38:
-			vodMethods.selector("up");
+			if (vodModel.mode === "grid") {
+				vodMethods.selector("up");
+			} else if (vodModel.mode === "details") {
+				vodMethods.reverseTransformSelected(vodModel.selectedMovie, 500, "up");
+			}
 			break;
 
 			//right
 			case 39:
 			if (vodModel.mode === "grid") {
 				vodMethods.selector("right");
-			} else if (vodModel.mode === "deck") {
+			} else if (vodModel.mode === "details") {
 				vodMethods.reverseTransformSelected(vodModel.selectedMovie, 500, "right");
 			}
 			break;
 
 			//down
 			case 40:
-			vodMethods.selector("down");
+			if (vodModel.mode === "grid") {
+				vodMethods.selector("down");
+			} else if (vodModel.mode === "details") {
+				vodMethods.reverseTransformSelected(vodModel.selectedMovie, 500, "down");
+			}
 			break;
 
 			//enter
 			case 13:
 			if (vodModel.mode === "grid") {
 				vodMethods.transform(vodModel.targets.deck, 1000, 'deck');
-			} else if (vodModel.mode === "deck") {
+			} else if (vodModel.mode === "details") {
+				vodModel.mode = "movie";
 				playVideo();
+				console.log(vodModel.mode);
 			}
 			break;
 
 			//escape
 			case 27:
-			if (vodModel.mode === "deck") {
+			if (vodModel.mode === "details") {
 				vodMethods.transform(vodModel.targets.grid, 1000, 'grid');
-			} else {
+			} else if (vodModel.mode === "movie") {
+				vodModel.mode = "details";
 				stopVideo();
 			}
 			break;
