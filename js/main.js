@@ -45,7 +45,6 @@ var opentvui = (function opentvui ($, global) {
 
 			camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000 );
 			camera.position.z = 3000;
-
 			scene = new THREE.Scene();
 
 			//setup
@@ -62,7 +61,7 @@ var opentvui = (function opentvui ($, global) {
 				cover.src = vodModel.movies[i][1];
 				element.appendChild(cover);
 	      
-	      		//css objects
+	      //css objects
 				var object = new THREE.CSS3DObject( element );
 				//these positions are the random starting points
 				object.position.x = Math.random() * 4000 - 2000;
@@ -71,28 +70,20 @@ var opentvui = (function opentvui ($, global) {
 				scene.add( object );
 				//store a reference to css objects
 				vodModel.objects.push(object);
-			}
 
-			//grid
-			for (var i = 0; i < vodModel.movies.length; i += 1) {
+				//grid
 				var object = new THREE.Object3D();
-				//% what's the remainder after you divide? Could be zero if it divides perfectly 
-				//object.position.x = ( ( i % vodModel.rowNum ) * 400 ) - 800;
 				object.position.x = vodModel.rowValues[ (i%vodModel.rowNum) ];
 				object.position.y = ( - ( Math.floor( i / vodModel.rowNum ) ) * 300 ) + 450;
-				//object.position.z = ( Math.floor( i / 25 ) ) * 1000;
 				object.position.z = 1500;
-				vodModel.targets.grid.push( object ); 
-			}
+				vodModel.targets.grid.push( object );
 
-			//deck
-			for ( var i = 0; i < vodModel.objects.length; i ++ ) {
+				//deck
 				var object = new THREE.Object3D();
 				object.position.x = 800;
 				object.position.y = - (400 + (i * 5));
 				object.position.z = 1300;
 				object.rotation.x = -1.5;
-				//object.rotation.z = Math.random();
 				vodModel.targets.deck.push( object );
 			}
 
@@ -233,6 +224,7 @@ var opentvui = (function opentvui ($, global) {
 
 			//get currently selected
 			var myPos = $(".movie.selected").index();
+			//fix hard-coded
 			var maxDown = 16;
 
 			if (direction === "left" && myPos > 0 ||
@@ -358,14 +350,6 @@ var opentvui = (function opentvui ($, global) {
 			break;
 
 		}
-
-		/*
-		if (vodModel.mode === "details" || vodModel.mode === "deck") {
-			$("body").addClass("details");
-		} else {
-			$("body").removeClass("details");
-		}
-		*/
 
 	});
 
