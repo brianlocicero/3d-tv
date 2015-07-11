@@ -19,7 +19,7 @@ a {
 	border: 3px solid rgba(127,255,255,0.75);
 }
 
-.selected.details {
+body.details .selected {
 	box-shadow:none;
 	border: 0;
 }
@@ -55,7 +55,9 @@ a {
 	width:100%;
 	height:100%;
 	background: black;
-	display: none;
+	opacity:0;
+	cursor:none;
+	pointer-events:none;
 }
 
 #videoPlayer video {
@@ -87,7 +89,8 @@ a {
 }
 
 #details p.releaseDate,
-#details p.director {
+#details p.director,
+#details p.ratings {
 	font-weight: 300;
 	font-size:1em;
 	margin:10px 0 0 0;
@@ -112,4 +115,37 @@ a {
 	border-radius: 4px;
 	font-size:1.5em;
 	margin:35px 0;
+}
+
+/*
+	Ratings Stars
+	(with as little code as possible)
+*/
+p.ratings {
+	float:left;
+	display: block;
+	padding-right:10px;
+}
+.rating {
+  unicode-bidi: bidi-override;
+  text-align: left;
+  line-height: 100%;
+  margin:10px 0 0 0;
+  font-size: 1em;
+}
+.rating > span {
+  display: inline-block;
+  position: relative;
+  width: 1.1em;
+}
+.rating > span.checked,
+.rating > span.chcked ~ span {
+  color: transparent;
+}
+.rating > span.checked:before,
+.rating > span.checked ~ span.checked:before {
+   content: "\2605";
+   position: absolute;
+   left: 0; 
+   color: gold;
 }
