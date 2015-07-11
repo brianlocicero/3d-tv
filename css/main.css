@@ -64,32 +64,33 @@ a {
 
 #details {
 	position: absolute;
-	top:55px;
-	left:45%;
-	width:45%;
-	height:100%;
+	top:3%;
+	left:40%;
+	width:55%;
+	height:90%;
 	color:#eee;
 	opacity: 0;
-	-vendor-animation-duration: .2s;
-  -vendor-animation-delay: 0s;
-  -vendor-animation-iteration-count: infinite;
+	-webkit-animation-duration: .5s;
+  	-webkit-animation-delay: 0s;
+  l
 }
 
 #details h1 {
 	margin-top:0;
-	font-size:1.75em;
+	font-size:2em;
 }
 
 #details p.description {
-	font-size:1.250em;
+	font-size:1.5em;
 	font-weight:300;
+	line-height: 150%;
 }
 
 #details p.releaseDate,
 #details p.director {
 	font-weight: 300;
 	font-size:1em;
-	margin:8px 0;
+	margin:10px 0 0 0;
 	line-height: 100%;
 }
 
@@ -109,6 +110,6 @@ a {
 	padding:1%;
 	text-align: center;
 	border-radius: 4px;
-	font-size:1.250em;
+	font-size:1.5em;
 	margin:35px 0;
 }

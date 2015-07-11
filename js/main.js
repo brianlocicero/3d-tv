@@ -41,7 +41,7 @@ var opentvui = (function opentvui ($, global) {
 	var vodMethods = {
 		init: function () {
 
-			camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 1, 10000 );
+			camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000 );
 			camera.position.z = 3000;
 
 			scene = new THREE.Scene();
@@ -60,7 +60,7 @@ var opentvui = (function opentvui ($, global) {
 				cover.src = vodModel.movies[i][1];
 				element.appendChild(cover);
 	      
-	      //css objects
+	      		//css objects
 				var object = new THREE.CSS3DObject( element );
 				//these positions are the random starting points
 				object.position.x = Math.random() * 4000 - 2000;
@@ -74,9 +74,12 @@ var opentvui = (function opentvui ($, global) {
 			//grid
 			for (var i = 0; i < vodModel.movies.length; i += 1) {
 				var object = new THREE.Object3D();
+				//% what's the remainder after you divide? Could be zero if it divides perfectly 
 				object.position.x = ( ( i % 5 ) * 400 ) - 800;
-				object.position.y = ( - ( Math.floor( i / 5 ) % 5 ) * 400 ) + 800;
-				object.position.z = ( Math.floor( i / 25 ) ) * 1000;
+				console.log( object.position.x );
+				object.position.y = ( - ( Math.floor( i / 7 ) ) * 300 ) + 600;
+				//object.position.z = ( Math.floor( i / 25 ) ) * 1000;
+				object.position.z = 0;
 				vodModel.targets.grid.push( object ); 
 			}
 
