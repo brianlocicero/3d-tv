@@ -72,9 +72,6 @@ body.details .selected {
 	height:90%;
 	color:#eee;
 	opacity: 0;
-	-webkit-animation-duration: .5s;
-  	-webkit-animation-delay: 0s;
-  l
 }
 
 #details h1 {

@@ -16,7 +16,7 @@
   ],
   "dependencies": {
     "jquery": "~2.1.4",
-    "object.observe": "~0.2.4",
-    "tweenjs": "*"
+    "tweenjs": "*",
+    "three.js": "~0.71.0"
   }
 }

@@ -19,7 +19,7 @@ var opentvui = (function opentvui ($, global) {
 			["Finding Nemo", "images/finding_nemo.jpg", "After his son is captured in the Great Barrier Reef and taken to Sydney, a timid clownfish sets out on a journey to bring him home.", "2003", "Brian LoCicero", 2],
 			["The Hobbit: An Unexpected Journey", "images/hobbit.jpg", "A reluctant hobbit, Bilbo Baggins, sets out to the Lonely Mountain with a spirited group of dwarves to reclaim their mountain home - and the gold within it - from the dragon Smaug.", "2012", "Brian LoCicero", 1],
 			["Hotel Transylvania", "images/hotel_transylvania.jpg", "Dracula, who operates a high-end resort away from the human world, goes into overprotective mode when a boy discovers the resort and falls for the count's teen-aged daughter.", "2012", "Brian LoCicero", 3],
-			["Hugo", "images/Hugo.jpg", "Set in 1930s Paris, an orphan who lives in the walls of a train station is wrapped up in a mystery involving his late father and an automaton.", "2011", "Brian LoCicero", 4],
+			["Hugo", "images/hugo.jpg", "Set in 1930s Paris, an orphan who lives in the walls of a train station is wrapped up in a mystery involving his late father and an automaton.", "2011", "Brian LoCicero", 4],
 			["The Hunger Games", "images/hunger_games.jpg", "Katniss Everdeen voluntarily takes her younger sister's place in the Hunger Games, a televised fight to the death in which two teenagers from each of the twelve Districts of Panem are chosen at random to compete.", "2012", "Brian LoCicero", 5],
 			["Iron Man", "images/iron_man.jpg", "After being held captive in an Afghan cave, an industrialist creates a unique weaponized suit of armor to fight evil.", "2008", "Brian LoCicero", 4],
 			["Les Misérables", "images/les_mis.jpg", "In 19th-century France, Jean Valjean, who for decades has been hunted by the ruthless policeman Javert after breaking parole, agrees to care for a factory worker's daughter. The decision changes their lives for ever.", "2012", "Brian LoCicero", 2],
@@ -80,9 +80,9 @@ var opentvui = (function opentvui ($, global) {
 
 				//deck
 				var object = new THREE.Object3D();
-				object.position.x = 800;
-				object.position.y = - (400 + (i * 5));
-				object.position.z = 1300;
+				object.position.x = 700;
+				object.position.y = - (300 + (i * 5));
+				object.position.z = 1700;
 				object.rotation.x = -1.5;
 				vodModel.targets.deck.push( object );
 			}
@@ -138,7 +138,7 @@ var opentvui = (function opentvui ($, global) {
 						vodModel.transforming = false;
 					}
 				})
-				.start();
+			.start();
 
 		},
 
@@ -157,34 +157,32 @@ var opentvui = (function opentvui ($, global) {
 
 			var object = vodModel.objects[targetNum];
 
-			new TWEEN.Tween( object.position )
+			var posTween = new TWEEN.Tween(object.position)
 				.to( { x: -180, y: 10, z: 2600 }, Math.random() * duration + duration )
 				.easing( TWEEN.Easing.Exponential.InOut )
-				.start();
+				.onUpdate(render)
+				.start()
 
-			new TWEEN.Tween( object.rotation )
+			var rotTween = new TWEEN.Tween(object.rotation)
 				.to( { x: 0, y: 0, z: 0 }, Math.random() * duration + duration )
 				.easing( TWEEN.Easing.Exponential.InOut )
+				.onUpdate( render )
+				.onComplete( function() {
+					$("#details h1.title").text( vodModel.movies[targetNum][0] );
+					$("#details p.description").text( vodModel.movies[targetNum][2] );
+					$("#details p.releaseDate").text( "Release Date: " + vodModel.movies[targetNum][3] + "");
+					$("#details p.director").text( "Director: " + vodModel.movies[targetNum][4] + "");
+					$("#details div.rating span").removeClass("checked");
+					$("#details div.rating span").each(function( index ) {
+					  if (index < vodModel.movies[targetNum][5]) {
+					  	$(this).addClass("checked");
+					  }
+					});
+					$("#details").addClass("animated fadeIn");
+					vodModel.transforming = false;
+				})
+				.delay(200)
 				.start();
-
-			new TWEEN.Tween( this )
-			.to( {}, duration * 2 )
-			.onUpdate( render )
-			.onComplete( function() {
-				$("#details h1.title").text( vodModel.movies[targetNum][0] );
-				$("#details p.description").text( vodModel.movies[targetNum][2] );
-				$("#details p.releaseDate").text( "Release Date: " + vodModel.movies[targetNum][3] + "");
-				$("#details p.director").text( "Director: " + vodModel.movies[targetNum][4] + "");
-				$("#details div.rating span").removeClass("checked");
-				$("#details div.rating span").each(function( index ) {
-				  if (index < vodModel.movies[targetNum][5]) {
-				  	$(this).addClass("checked");
-				  }
-				});
-				$("#details").addClass("animated fadeIn");
-				vodModel.transforming = false;
-			})
-			.start();
 
 		},
 
@@ -197,26 +195,23 @@ var opentvui = (function opentvui ($, global) {
 			TWEEN.removeAll();
 
 			var object = vodModel.objects[targetNum];
-			console.log(object);
 
-			new TWEEN.Tween( object.position )
-				.to( { x: vodModel.selectedPos[0], y: vodModel.selectedPos[1], z: vodModel.selectedPos[2] }, Math.random() * duration + duration )
-				.easing( TWEEN.Easing.Exponential.InOut )
-				.start();
-
-			new TWEEN.Tween( object.rotation )
+			var rotTween = new TWEEN.Tween( object.rotation )
 				.to( { x: vodModel.selectedPos[3], y: 0, z: 0 }, Math.random() * duration + duration )
 				.easing( TWEEN.Easing.Exponential.InOut )
+				.onUpdate( render )
 				.start();
 
-			new TWEEN.Tween( this )
-			.to( {}, duration * 2 )
-			.onUpdate( render )
-			.onComplete( function () {
-				vodMethods.selector(direction);
-				vodMethods.transformSelected(vodModel.selectedMovie, 500);
-			})
-			.start();
+			var posTween = new TWEEN.Tween( object.position )
+				.to( { x: vodModel.selectedPos[0], y: vodModel.selectedPos[1], z: vodModel.selectedPos[2] }, Math.random() * duration + duration )
+				.easing( TWEEN.Easing.Exponential.InOut )
+				.delay(200)
+				.onUpdate( render )
+				.onComplete( function () {
+					vodMethods.selector(direction);
+					vodMethods.transformSelected(vodModel.selectedMovie, 500);
+				})
+				.start();
 
 		},
 
@@ -248,7 +243,7 @@ var opentvui = (function opentvui ($, global) {
 		}
 	}
 
-	//threejs stuff
+	//threejs
 	function onWindowResize() {
 		camera.aspect = window.innerWidth / window.innerHeight;
 		camera.updateProjectionMatrix();
